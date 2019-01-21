@@ -9,14 +9,14 @@ import { $ } from 'protractor';
 })
 export class PostComponent implements OnInit {
 
-  constructor(private _service: PostService) { }
+  constructor() { }
 
   ngOnInit() {
 
   }
 
   onClear(){
-    this._service.form.reset();
-    this._service.initializeFormGroup();
+    // this._service.form.reset();
+    // this._service.initializeFormGroup();
   }
 }
