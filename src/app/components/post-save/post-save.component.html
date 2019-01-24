@@ -1,0 +1,41 @@
+<h1 mat-dialog-title>{{ title }}</h1>
+<div mat-dialog-content>
+  <form class="example-form" [formGroup]="postForm">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="title" formControlName="title">
+      <mat-error *ngIf="postForm.controls.title.hasError('required')">
+        Title is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Author" formControlName="author">
+      <mat-error *ngIf="postForm.controls.author.hasError('required')">
+        Author is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </form>
+  <br />
+  <span>Tags</span>
+  <div class="checkbox-row">
+    <div *ngFor="let item of allTags">
+        <!-- <mat-checkbox class="example-margin" [value]="item" [title]="item" [checked]="tags.includes(item)"
+        (change)="populateList($event, item)">Checked</mat-checkbox> -->
+      <!-- <hg-checkbox id="{{item}}" [value]="item" [title]="item" [checked]="tags.includes(item)"
+        (change)="populateList($event, item)"> -->
+        <mat-checkbox
+          class="example-margin"
+          [checked]="tags.includes(item)"
+          [value]="item"
+          (change)="populateList($event, item)">
+          {{ item }}
+      </mat-checkbox>
+    </div>
+  </div>
+  <br />
+  <ckeditor [editor]="Editor" [(ngModel)]="postContent"></ckeditor>
+</div>
+<div mat-dialog-actions>
+  <button mat-button tabindex="2" (click)="savePost()">Save</button>
+  <button mat-button (click)="onClose()" tabindex="-1">Cancel</button>
+</div>

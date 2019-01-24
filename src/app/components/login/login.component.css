@@ -1,0 +1,12 @@
+body {
+  background: aliceblue !important;
+}
+
+.example-card {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.mat-raised-button {
+  margin: 0 auto;
+}

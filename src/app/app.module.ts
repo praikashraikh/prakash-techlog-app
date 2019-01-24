@@ -2,7 +2,7 @@ import * as $ from 'jquery';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { AppRoutes } from './app.routing';
@@ -18,6 +18,9 @@ import { DemoMaterialModule } from './demo-material-module';
 import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
 import { PostListComponent } from './components/post-list/post-list.component';
+import { LoginComponent } from './components/login/login.component';
+import { PostSaveComponent } from './components/post-save/post-save.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   declarations: [
@@ -26,23 +29,30 @@ import { PostListComponent } from './components/post-list/post-list.component';
     AppHeaderComponent,
     SpinnerComponent,
     AppSidebarComponent,
-    PostListComponent
+    PostListComponent,
+    LoginComponent,
+    PostSaveComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     DemoMaterialModule,
     FormsModule,
+    ReactiveFormsModule,
     FlexLayoutModule,
     HttpClientModule,
     SharedModule,
-    RouterModule.forRoot(AppRoutes)
+    RouterModule.forRoot(AppRoutes),
+    CKEditorModule,
   ],
   providers: [
     {
       provide: LocationStrategy,
       useClass: PathLocationStrategy
     }
+  ],
+  entryComponents: [
+    PostSaveComponent
   ],
   bootstrap: [AppComponent]
 })
