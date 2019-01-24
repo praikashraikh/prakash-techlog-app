@@ -15,21 +15,12 @@ export const AppRoutes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/starter',
+        redirectTo: '/posts',
         pathMatch: 'full'
       },
       {
         path: 'posts',
         component: PostListComponent
-      },
-      {
-        path: '',
-        loadChildren:
-          './material-component/material.module#MaterialComponentsModule'
-      },
-      {
-        path: 'starter',
-        loadChildren: './starter/starter.module#StarterModule'
       }
     ]
   }
