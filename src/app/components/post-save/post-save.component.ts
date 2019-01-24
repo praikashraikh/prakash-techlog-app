@@ -5,7 +5,6 @@ import * as _ from 'lodash';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { PostService } from '../../services/post/post.service';
-import { createWriteStream, supported, version } from 'StreamSaver';
 
 @Component({
   selector: 'app-post-save',
@@ -37,19 +36,6 @@ export class PostSaveComponent implements OnInit {
 
   ngOnInit() {
     this._initializeForm();
-
-    const fileStream = createWriteStream('filename.txt')
-    const writer = fileStream.getWriter()
-    const encoder = new TextEncoder
-    let data = 'a'.repeat(1024)
-    let uint8array = encoder.encode(data + "\n\n")
-
-    writer.write(uint8array)
-    writer.close()
-
-    console.log(supported);
-
-    return fileStream;
   }
 
   onClose() {
