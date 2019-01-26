@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 import { FullComponent } from './layouts/full/full.component';
 import { PostListComponent } from './components/post-list/post-list.component';
 import { LoginComponent } from './components/login/login.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const AppRoutes: Routes = [
   {
@@ -11,7 +12,7 @@ export const AppRoutes: Routes = [
   },
   {
     path: '',
-    component: FullComponent,
+    component: FullComponent, canActivate : [AuthGuard],
     children: [
       {
         path: '',
@@ -20,7 +21,7 @@ export const AppRoutes: Routes = [
       },
       {
         path: 'posts',
-        component: PostListComponent
+        component: PostListComponent, canActivate : [AuthGuard]
       }
     ]
   }

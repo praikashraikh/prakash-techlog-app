@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { PostService } from '../../services/post/post.service';
+import { FormMessageViewModel } from '../../models/form.message.model';
 
 @Component({
   selector: 'app-post-save',
@@ -20,6 +21,7 @@ export class PostSaveComponent implements OnInit {
   postContent: string = '';
   tags: string[] = [];
   allTags: string[] = ["NodeJs", "Angular", "Machine Learning"].sort();
+  formMessage = new FormMessageViewModel();
 
   constructor(
     private fb: FormBuilder,
@@ -45,9 +47,13 @@ export class PostSaveComponent implements OnInit {
   savePost() {
     this._postService
       .savePost(this.mode, this.postForm.value, this.tags, this.postContent)
-      .subscribe(
-
-      );
+      .subscribe(result => {
+        this._postService.loadPosts();
+        this.dialogRef.close();
+      }, err =>{
+        this.formMessage.type = 'fail';
+        this.formMessage.message = 'Failed to save Post.';
+      });
   }
 
   public populateList(ev, val) {

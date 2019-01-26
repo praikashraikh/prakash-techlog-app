@@ -21,6 +21,7 @@ import { PostListComponent } from './components/post-list/post-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { PostSaveComponent } from './components/post-save/post-save.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     {
       provide: LocationStrategy,
       useClass: PathLocationStrategy
-    }
+    },
+    AuthGuard
   ],
   entryComponents: [
     PostSaveComponent

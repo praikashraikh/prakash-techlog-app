@@ -17,13 +17,23 @@ export class PostListComponent implements OnInit {
 
   ngOnInit() {
     // this.dataSource.paginator = this.paginator;
-    this._postService.getPostList().subscribe(
-      (posts: any[]) => {
+      this._postService.posts$.subscribe(posts => {
         this.dataSource = new MatTableDataSource<any>(posts['data'])
+      });
+
+      this._postService.loadPosts();
+  }
+
+  deletePost(id: string) {
+    this._postService.deletePost(id).subscribe(
+      result => {
+        this._postService.loadPosts();
       },
       err => {
-        console.log(err)
-      });
+        this._postService.loadPosts();
+        console.log(err);
+      }
+      );
   }
 
   updatePost(mode, post = null): void {
@@ -37,6 +47,7 @@ export class PostListComponent implements OnInit {
     });
   }
 }
+
 export interface Post {
   title: string;
   author: string;

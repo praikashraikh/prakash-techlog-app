@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { retry } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
+  posts = new Subject<object>();
+  posts$ = this.posts.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -23,6 +26,15 @@ export class PostService {
       params: query, headers: new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` })
     })
       .pipe(retry(3));
+  }
+
+  loadPosts() {
+    this.getPostList().subscribe(posts => {
+      this.posts.next(posts);
+    },
+    err => {
+      console.log(err)
+    });
   }
 
   savePost(mode: string, formData: any, tags: string[], postContent: string) {
