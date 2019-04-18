@@ -15,22 +15,32 @@
         Author is <strong>required</strong>
       </mat-error>
     </mat-form-field>
+
   </form>
-  <br />
+
+  <span>Image</span> <br />
+  <input #imageInput type="file" accept="image/*" (change)="processFile(imageInput)">
+  <div class="image-preview-container" *ngIf="selectedFile">
+    <div class="img-preview" [ngStyle]="{'background-image': 'url(' + selectedFile.src + ')'}">
+    </div>
+    <div *ngIf="selectedFile.status === 'ok'" class="alert alert-success">Image uploaded successfully</div>
+    <div *ngIf="selectedFile.status === 'fail'" class="alert alert-danger">Image upload failed.</div>
+  </div>
+  <br /> <br />
+
   <span>Tags</span>
   <div class="checkbox-row">
     <div *ngFor="let item of allTags">
-        <mat-checkbox
-          class="example-margin"
-          [checked]="tags.includes(item)"
-          [value]="item"
-          (change)="populateList($event, item)">
-          {{ item }}
+      <mat-checkbox class="example-margin" [checked]="tags.includes(item)" [value]="item" (change)="populateList($event, item)">
+        {{ item }}
       </mat-checkbox>
     </div>
   </div>
   <br />
-  <ckeditor [editor]="Editor" [(ngModel)]="postContent"></ckeditor>
+  <textarea name="content" id="editor" [(ngModel)]="postContent">{{ postForm.controls.post.value }}</textarea>
+
+
+  <!-- <ckeditor [config]="config" [editor]="Editor" [(ngModel)]="postContent"></ckeditor> -->
 </div>
 <div mat-dialog-actions>
   <button mat-button tabindex="2" (click)="savePost()">Save</button>

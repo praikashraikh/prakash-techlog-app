@@ -14,6 +14,7 @@ export class PostService {
 
   getApiUrl(): string {
     return "https://prakash-techlog.herokuapp.com/api/v1/admin/";
+    //return "http://localhost:3000/api/v1/admin/";
   }
 
   getPostList(query: any = {}, endPoint = 'post') {
@@ -37,7 +38,7 @@ export class PostService {
     });
   }
 
-  savePost(mode: string, formData: any, tags: string[], postContent: string) {
+  savePost(mode: string, formData: any, tags: string[], postContent: string = '', imageUrl: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -45,11 +46,10 @@ export class PostService {
       })
     };
 
-    console.log(formData);
-
     let body = {
       title: formData.title || '',
       author: formData.author || '',
+      imageUrl: imageUrl || '',
       post: postContent || '',
       tags: tags || [],
       createdDateTime: new Date()
